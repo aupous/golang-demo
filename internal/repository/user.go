@@ -23,9 +23,14 @@ func (r *UserRepository) Update(user *model.User) error {
 	return err
 }
 
-func (r *UserRepository) Find() ([]*model.User, error) {
+func (r *UserRepository) Find(search string) ([]*model.User, error) {
 	users := make([]*model.User, 0)
-	err := r.DB.DB.Model(users).Select()
+	query := r.DB.DB.Model(users)
+	if search != "" {
+		searchString := "%"+search+"%"
+		query = query.Where("name ILIKE ? OR email ILIKE ?", searchString, searchString)
+	}
+	err := query.Select()
 	return users, err
 }
 

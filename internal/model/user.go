@@ -13,6 +13,7 @@ type User struct {
 type UserRepository interface {
 	Create(*User) error
 	Update(*User) error
-	Find() ([]*User, error)
+	Find(search string) ([]*User, error)
 	Delete(*User) error
 }
+
