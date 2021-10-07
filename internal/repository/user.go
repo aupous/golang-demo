@@ -23,15 +23,37 @@ func (r *UserRepository) Update(user *model.User) error {
 	return err
 }
 
-func (r *UserRepository) Find(search string) ([]*model.User, error) {
+func (r *UserRepository) Search(search string) ([]*model.User, error) {
 	users := make([]*model.User, 0)
-	query := r.DB.DB.Model(users)
+	query := r.DB.DB.Model(&users)
 	if search != "" {
-		searchString := "%"+search+"%"
+		searchString := "%" + search + "%"
 		query = query.Where("name ILIKE ? OR email ILIKE ?", searchString, searchString)
 	}
 	err := query.Select()
 	return users, err
+}
+
+func (r *UserRepository) Find(req model.FindUserRequest) ([]*model.User, int64, error) {
+	users := make([]*model.User, 0)
+	query := r.DB.DB.Model(&users)
+	//
+	if req.Search != "" {
+		searchString := "%" + req.Search + "%"
+		query = query.Where("name ILIKE ? OR email ILIKE ?", searchString, searchString)
+	}
+	if req.MinAge != 0 {
+		query = query.Where("age >= ?", req.MinAge)
+	}
+	if req.MaxAge != 0 {
+		query = query.Where("age <= ?", req.MaxAge)
+	}
+	if req.Job != "" {
+		query = query.Where("job = ?", req.Job)
+	}
+
+	total, err := query.Offset(req.PerPage * (req.Page - 1)).Limit(req.PerPage).SelectAndCount()
+	return users, int64(total), err
 }
 
 func (r *UserRepository) Delete(user *model.User) error {
