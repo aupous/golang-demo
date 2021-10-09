@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
@@ -21,17 +22,19 @@ func (h *Handler) Create(c *gin.Context) {
 	var req CreateUserRequest
 	if err := c.Bind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":  "Bad request",
+			"error":  err,
 			"status": http.StatusBadRequest,
 		})
+		//responsehelper.ResponseWithValidationError(c, err)
 		return
 	}
+	password, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	user := model.User{
 		Name:     req.Name,
 		Email:    req.Email,
-		Password: req.Password,
+		Password: string(password),
 	}
-	err := h.UserRepo.Create(&user)
+	err = h.UserRepo.Create(&user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error":  "Internal Server Error",
@@ -80,6 +83,8 @@ func (h *Handler) Update(c *gin.Context) {
 }
 
 func (h *Handler) Find(c *gin.Context) {
+	claims, _ := c.Get("User")
+	logrus.Info(claims)
 	var req model.FindUserRequest
 	if c.Bind(&req) != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

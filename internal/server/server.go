@@ -3,21 +3,23 @@ package server
 import (
 	"awesomeProject/internal/configs"
 	"awesomeProject/internal/db"
+	"awesomeProject/internal/modules/auth"
 	"awesomeProject/internal/modules/user"
 	"awesomeProject/internal/repository"
 	"github.com/gin-gonic/gin"
 )
 
-type Server struct {}
+type Server struct{}
 
 func (s *Server) Start() {
 	r := gin.Default()
-	pgConfig := configs.LoadEnv()
+	config := configs.LoadEnv()
 	pgDB := db.DB{}
-	pgDB.Connect(pgConfig)
+	pgDB.Connect(config.PostgresConfig)
 
 	userRepo := repository.NewUserRepository(&pgDB)
-	user.Init(r, userRepo)
+	user.Init(r, config, userRepo)
+	auth.Init(r, config, userRepo)
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",

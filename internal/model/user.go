@@ -7,7 +7,7 @@ type User struct {
 	ID        uuid.UUID `json:"id" pg:"type:uuid"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
-	Password  string    `json:"password"`
+	Password  string    `json:"-"`
 	FullName  string    `json:"fullName"`
 	Age       int       `json:"age"`
 	Job       string    `json:"job"`
@@ -18,6 +18,7 @@ type UserRepository interface {
 	Update(*User) error
 	Search(search string) ([]*User, error)
 	Find(request FindUserRequest) ([]*User, int64, error)
+	FindByEmail(email string) (*User, error)
 	Delete(*User) error
 }
 

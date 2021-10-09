@@ -2,14 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a43576b5-2bd9-486b-8b36-a865705c0121" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/constants/constants.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/update_table_user_add_age_and_job.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/helpers/responsehelpers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/middlewares/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/modules/auth/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/modules/auth/handler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/modules/auth/init.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/modules/auth/request.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/modules/auth/response.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/modules/auth/route.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/utils/hash.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/configs/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/configs/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/modules/user/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/user/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/modules/user/request.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/user/request.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/modules/user/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/user/init.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/modules/user/route.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/modules/user/route.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +61,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/modules/auth" />
       <recent name="$PROJECT_DIR$/cmd/main" />
     </key>
   </component>

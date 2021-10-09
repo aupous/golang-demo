@@ -1,9 +1,13 @@
 package user
 
-import "github.com/gin-gonic/gin"
+import (
+	"awesomeProject/internal/configs"
+	"awesomeProject/internal/middlewares"
+	"github.com/gin-gonic/gin"
+)
 
-func RegisterRoutes(g *gin.Engine ,h *Handler) {
-	g.GET("/users", h.Find)
+func RegisterRoutes(g *gin.Engine, config *configs.Config, h *Handler) {
+	g.GET("/users", middlewares.JWTAuth(config), h.Find)
 	g.POST("/users", h.Create)
 	g.PUT("/users/:user-id", h.Update)
 }
