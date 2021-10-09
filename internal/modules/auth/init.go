@@ -1,4 +1,4 @@
-package user
+package auth
 
 import (
 	"awesomeProject/internal/configs"
@@ -7,6 +7,6 @@ import (
 )
 
 func Init(g *gin.Engine, config *configs.Config, userRepo model.UserRepository) {
-	handler := NewHandler(userRepo)
-	RegisterRoutes(g, config, handler)
+	handler := NewHandler(userRepo, config)
+	RegisterRoutes(g, handler)
 }

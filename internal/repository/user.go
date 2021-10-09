@@ -3,6 +3,7 @@ package repository
 import (
 	"awesomeProject/internal/db"
 	"awesomeProject/internal/model"
+	"github.com/go-pg/pg/v10"
 )
 
 type UserRepository struct {
@@ -54,6 +55,18 @@ func (r *UserRepository) Find(req model.FindUserRequest) ([]*model.User, int64, 
 
 	total, err := query.Offset(req.PerPage * (req.Page - 1)).Limit(req.PerPage).SelectAndCount()
 	return users, int64(total), err
+}
+
+func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
+	var user model.User
+	err := r.DB.DB.Model(&user).Where("email = ?", email).First()
+	if err == pg.ErrNoRows {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 func (r *UserRepository) Delete(user *model.User) error {
